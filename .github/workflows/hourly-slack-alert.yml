@@ -2,7 +2,7 @@ name: Hourly Slack Alert
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs every hour at minute 0 (UTC)
+    - cron: '*/5 * * * *'  # Every 5 minutes
   workflow_dispatch:
 
 jobs:
@@ -34,5 +34,4 @@ jobs:
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          echo "CLICKHOUSE_HOST: $CLICKHOUSE_HOST"
           python slack_alert.py
