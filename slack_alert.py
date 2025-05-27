@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+print(os.getenv('CLICKHOUSE_HOST'))
 # ClickHouse connection using environment variables from GitHub Secrets
 clickhouse_client = Client(
     host=os.getenv('CLICKHOUSE_HOST'),

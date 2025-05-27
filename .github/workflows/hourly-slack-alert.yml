@@ -33,4 +33,6 @@ jobs:
           CLICKHOUSE_USER: ${{ secrets.CLICKHOUSE_USER }}
           CLICKHOUSE_PASSWORD: ${{ secrets.CLICKHOUSE_PASSWORD }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: python slack_alert.py
+        run: |
+          echo "CLICKHOUSE_HOST: $CLICKHOUSE_HOST"
+          python slack_alert.py
