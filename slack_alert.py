@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print(os.getenv('CLICKHOUSE_HOST'))
 # ClickHouse connection using environment variables from GitHub Secrets
 clickhouse_client = Client(
     host=os.getenv('CLICKHOUSE_HOST'),
@@ -92,16 +91,17 @@ def format_slack_message(data):
 def send_slack_alert():
     try:
         data = fetch_betting_data()
-        slack_message = format_slack_message(data)
-        response = slack.send(
-            text="Hourly Betting Activity Alert",
-            blocks=slack_message["blocks"]
-        )
-        if response.status_code == 200:
-            print("Alert sent successfully")
-        else:
-            print(f"Failed to send alert: {response.status_code}, {response.body}")
-            raise Exception(f"Slack API error: {response.body}")
+        if data:
+            slack_message = format_slack_message(data)
+            response = slack.send(
+                text="Hourly Betting Activity Alert",
+                blocks=slack_message["blocks"]
+            )
+            if response.status_code == 200:
+                print("Alert sent successfully")
+            else:
+                print(f"Failed to send alert: {response.status_code}, {response.body}")
+                raise Exception(f"Slack API error: {response.body}")
     except Exception as e:
         print(f"Error in send_slack_alert: {str(e)}")
         raise

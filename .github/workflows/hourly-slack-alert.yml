@@ -2,7 +2,7 @@ name: Hourly Slack Alert
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: '* * * * *'
 jobs:
   send-slack-alert:
     runs-on: ubuntu-latest
